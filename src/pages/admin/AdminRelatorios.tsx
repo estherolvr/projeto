@@ -50,7 +50,7 @@ export default function AdminRelatorios() {
       <div className="mt-8 bg-brand-600 rounded-xl p-8 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-lg">
         <div>
           <h2 className="text-xl font-bold mb-2">Precisa de um relatório personalizado?</h2>
-          <p className="text-brand-100">Crie visões customizadas utilizando o Construtor de Relatórios do ASAIA, selecionando métricas específicas, filtros avançados e exportações automatizadas.</p>
+          <p className="text-brand-100">Crie visões customizadas utilizando o Construtor de Relatórios do Álvaro AI, selecionando métricas específicas, filtros avançados e exportações automatizadas.</p>
         </div>
         <button className="whitespace-nowrap px-6 py-3 bg-white text-brand-600 rounded-lg font-bold hover:bg-gray-50 transition-colors shadow-sm">
           Criar Relatório

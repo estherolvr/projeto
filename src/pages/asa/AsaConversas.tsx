@@ -56,7 +56,7 @@ export default function AsaConversas() {
         <div className="flex-1 overflow-y-auto p-6 space-y-4">
           {activeConv.messages.map(msg => (
             <div key={msg.id} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
-              <div className="text-xs text-gray-500 mb-1">{msg.role === 'user' ? 'Aluno' : 'ASAIA Bot'} • {new Date(msg.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+              <div className="text-xs text-gray-500 mb-1">{msg.role === 'user' ? 'Aluno' : 'Álvaro AI'} • {new Date(msg.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
               <div className={`max-w-[70%] p-4 rounded-2xl text-sm ${msg.role === 'user' ? 'bg-gray-800 text-white rounded-tr-none dark:bg-slate-700' : 'bg-white border border-gray-200 text-gray-800 rounded-tl-none dark:bg-slate-800 dark:border-slate-600 dark:text-slate-200'}`}>
                 <div className="whitespace-pre-wrap">{msg.content}</div>
                 {msg.actions && (

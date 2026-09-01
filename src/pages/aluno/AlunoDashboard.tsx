@@ -14,13 +14,16 @@ import StatusBadge from '../../components/ui/StatusBadge'
 import PriorityBadge from '../../components/ui/PriorityBadge'
 import SLAIndicator from '../../components/ui/SLAIndicator'
 import FecapLogo from '../../components/ui/FecapLogo'
+import { useAppStore } from '../../store/app-store'
 
 export default function AlunoDashboard() {
   const navigate = useNavigate()
   const [query, setQuery] = useState('')
+  const currentUser = useAppStore(state => state.currentUser)
 
-  const recentConversations = mockConversations.filter(c => c.studentId === 'aluno-01').slice(0, 3)
-  const openTickets = mockTickets.filter(t => t.studentId === 'aluno-01' && ['aberto', 'em_atendimento', 'aguardando_aluno'].includes(t.status))
+  const studentId = currentUser?.id || 'aluno-01'
+  const recentConversations = mockConversations.filter(c => c.studentId === studentId).slice(0, 3)
+  const openTickets = mockTickets.filter(t => t.studentId === studentId && ['aberto', 'em_atendimento', 'aguardando_aluno'].includes(t.status))
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -40,7 +43,7 @@ export default function AlunoDashboard() {
     },
     {
       icon: Sparkles,
-      title: 'Assistente ASAIA (Chat IA)',
+      title: 'Assistente Álvaro AI (Chat IA)',
       desc: 'Tire dúvidas 24/7 sobre regras, prazos e notas',
       path: '/aluno/chat',
       badge: 'IA 24/7',
@@ -100,24 +103,24 @@ export default function AlunoDashboard() {
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="flex items-center gap-5">
             <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-brand-600 text-white font-bold text-2xl flex items-center justify-center shadow-md flex-shrink-0 border-2 border-white dark:border-slate-700">
-              ER
+              {currentUser?.name ? currentUser.name.split(' ').map((n: string) => n[0]).slice(0, 2).join('') : 'AL'}
             </div>
             <div className="space-y-1">
               <div className="flex flex-wrap items-center gap-2">
                 <h1 className="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-                  Olá, Esther Rodrigues 👋
+                  Olá, {currentUser?.name || 'Estudante'} 👋
                 </h1>
                 <Badge variant="success" dot>Matrícula Ativa</Badge>
               </div>
               <p className="text-sm text-gray-500 dark:text-slate-400">
-                Administração de Empresas · <strong>4º Semestre</strong> · Noturno · RA: <strong className="font-mono text-gray-900 dark:text-slate-200">24001523</strong>
+                {currentUser?.course || 'Graduação'} · <strong>{currentUser?.semester || 1}º Semestre</strong> · {currentUser?.period || 'Noite'} · RA: <strong className="font-mono text-gray-900 dark:text-slate-200">{currentUser?.ra || '24000000'}</strong>
               </p>
               <div className="flex items-center gap-3 pt-1 text-2xs text-gray-500 dark:text-slate-400">
                 <span>Campus Liberdade</span>
                 <span>•</span>
-                <span>Turma ADM-4N</span>
+                <span>Semestre Letivo 2026/2</span>
                 <span>•</span>
-                <span className="text-brand-700 dark:text-brand-400 font-semibold">Semestre Letivo 2026/2</span>
+                <span className="text-brand-700 dark:text-brand-400 font-semibold">{currentUser?.email}</span>
               </div>
             </div>
           </div>
@@ -180,7 +183,7 @@ export default function AlunoDashboard() {
           <div className="text-center space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-xs font-semibold backdrop-blur-sm text-teal-300">
               <Sparkles size={14} />
-              Inteligência Artificial ASAIA
+              Inteligência Artificial Álvaro AI
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
               O que você precisa resolver hoje?
@@ -403,7 +406,7 @@ export default function AlunoDashboard() {
               <h3 className="font-bold text-gray-900 dark:text-white text-base">
                 Conversas Recentes com a IA
               </h3>
-              <Badge variant="info">ASAIA</Badge>
+              <Badge variant="info">Álvaro AI</Badge>
             </div>
             <button
               onClick={() => navigate('/aluno/chat')}

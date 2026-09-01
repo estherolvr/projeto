@@ -22,7 +22,7 @@ const navItems = [
 
 
 export default function AlunoLayout() {
-  const { theme, toggleTheme } = useAppStore()
+  const { theme, toggleTheme, currentUser, logout } = useAppStore()
   const [mobileOpen, setMobileOpen] = useState(false)
   const navigate = useNavigate()
 
@@ -37,7 +37,7 @@ export default function AlunoLayout() {
           <div className="flex items-center gap-2.5">
             <FecapLogo size={32} />
             <div>
-              <span className="font-bold text-gray-900 dark:text-white tracking-tight">ASAIA</span>
+              <span className="font-bold text-gray-900 dark:text-white tracking-tight">Álvaro AI</span>
               <p className="text-[10px] text-gray-500 dark:text-slate-400 leading-tight">Portal do Aluno</p>
             </div>
           </div>
@@ -75,7 +75,10 @@ export default function AlunoLayout() {
             {theme === 'dark' ? 'Modo claro' : 'Modo escuro'}
           </button>
           <button
-            onClick={() => navigate('/login')}
+            onClick={() => {
+              logout()
+              navigate('/login')
+            }}
             className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-slate-700/50 transition-colors"
           >
             <LogOut className="w-4 h-4" />
@@ -107,7 +110,7 @@ export default function AlunoLayout() {
                   <div className="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center">
                     <span className="text-white font-bold text-sm">A</span>
                   </div>
-                  <span className="font-bold text-gray-900 dark:text-white text-lg">ASAIA</span>
+                  <span className="font-bold text-gray-900 dark:text-white text-lg">Álvaro AI</span>
                 </div>
                 <button onClick={() => setMobileOpen(false)} className="p-1 rounded-lg text-gray-400 hover:text-gray-600">
                   <X className="w-5 h-5" />
@@ -148,9 +151,9 @@ export default function AlunoLayout() {
           </button>
           <div className="flex items-center gap-2">
             <FecapLogo size={28} />
-            <span className="font-bold text-gray-900 dark:text-white">ASAIA</span>
+            <span className="font-bold text-gray-900 dark:text-white">Álvaro AI</span>
           </div>
-          <Avatar name="Esther Rodrigues" size="sm" />
+          <Avatar name={currentUser?.name || 'Aluno'} size="sm" />
         </header>
 
         {/* Desktop header */}
@@ -161,7 +164,12 @@ export default function AlunoLayout() {
               <Bell className="w-5 h-5" />
               <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" />
             </button>
-            <Avatar name="Esther Rodrigues" size="sm" />
+            <div className="flex items-center gap-2">
+              <Avatar name={currentUser?.name || 'Aluno'} size="sm" />
+              <span className="text-sm font-medium text-gray-700 dark:text-slate-300">
+                {currentUser?.name || 'Aluno'}
+              </span>
+            </div>
           </div>
         </header>
 

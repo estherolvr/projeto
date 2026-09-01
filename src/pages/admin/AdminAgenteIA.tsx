@@ -20,7 +20,7 @@ export default function AdminAgenteIA() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100">
-            Inteligência do ASAIA
+            Inteligência do Álvaro AI
           </h1>
           <div className="flex items-center gap-2 px-3 py-1 bg-brand-50 dark:bg-brand-900/20 text-brand-700 dark:text-brand-400 rounded-full text-sm font-medium">
             <span className="w-2 h-2 rounded-full bg-brand-500 animate-pulse" />

@@ -4,6 +4,7 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { Ticket, AlertCircle, Clock, CheckCircle, ArrowUpRight, MessageSquare } from 'lucide-react';
 import { mockTickets } from '@/lib/mock-data';
 import { Link } from 'react-router-dom';
+import { useAppStore } from '@/store/app-store';
 
 const mockChartData = {
   ticketsOverTime: [
@@ -16,14 +17,18 @@ const mockChartData = {
 };
 
 export default function AsaDashboard() {
+  const currentUser = useAppStore(state => state.currentUser);
+  const attendantId = currentUser?.id || 'asa-01';
   const riskTickets = mockTickets.filter(t => t.slaStatus === 'risk');
   const recentTickets = mockTickets.slice(0, 5);
-  const myTickets = mockTickets.filter(t => t.assignedTo === 'asa-01');
+  const myTickets = mockTickets.filter(t => t.assignedTo === attendantId);
+
+  const firstName = currentUser?.name ? currentUser.name.split(' ')[0] : 'Atendente';
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-4 md:p-6 space-y-6 max-w-7xl mx-auto">
       <header className="mb-8">
-        <h1 className="text-2xl font-semibold text-gray-900 dark:text-slate-100">Bom dia, Fernanda 👋</h1>
+        <h1 className="text-2xl font-semibold text-gray-900 dark:text-slate-100">Bom dia, {firstName} 👋</h1>
         <p className="text-gray-500 dark:text-slate-400">Veja o que precisa da sua atenção.</p>
       </header>
 

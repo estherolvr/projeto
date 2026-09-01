@@ -22,7 +22,7 @@ export default function AdminIntegracoes() {
               98% Saúde do Sistema
             </span>
           </h1>
-          <p className="text-sm text-gray-500 dark:text-slate-400 mt-1">Conectores e APIs externas que alimentam o ASAIA.</p>
+          <p className="text-sm text-gray-500 dark:text-slate-400 mt-1">Conectores e APIs externas que alimentam o Álvaro AI.</p>
         </div>
       </div>
 

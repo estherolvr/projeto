@@ -1,5 +1,5 @@
 // ============================================================
-// ASAIA — Mock Data
+// Álvaro AI — Mock Data
 // ============================================================
 
 export type UserRole = 'aluno' | 'asa' | 'admin'
@@ -568,7 +568,7 @@ export const mockMessages: Message[] = [
     id: 'msg-02',
     ticketId: 'ticket-01',
     sender: 'ia',
-    senderName: 'ASAIA',
+    senderName: 'Álvaro AI',
     content: 'Olá, Esther! Identifiquei que seu chamado está relacionado a uma dificuldade no processo de matrícula. Nossa equipe irá analisar sua situação. Enquanto isso, verifique se há alguma pendência financeira em aberto no portal que possa estar bloqueando a matrícula.',
     timestamp: '2026-08-28T09:15:45',
   },
@@ -877,7 +877,7 @@ export const mockKBDocuments: KBDocument[] = [
     id: 'kb-13',
     title: 'Atendimento Remoto — Guia',
     category: 'Geral',
-    content: 'Como utilizar o atendimento remoto via ASAIA...',
+    content: 'Como utilizar o atendimento remoto via Álvaro AI...',
     version: '1.0',
     status: 'rascunho',
     author: 'Camila Rocha',
@@ -889,13 +889,13 @@ export const mockKBDocuments: KBDocument[] = [
   },
   {
     id: 'kb-14',
-    title: 'FAQ Geral ASAIA',
+    title: 'FAQ Geral Álvaro AI',
     category: 'Geral',
-    content: 'Perguntas frequentes sobre a plataforma ASAIA...',
+    content: 'Perguntas frequentes sobre a plataforma Álvaro AI...',
     version: '1.0',
     status: 'rascunho',
     author: 'Patricia Lemos',
-    tags: ['FAQ', 'ASAIA', 'plataforma'],
+    tags: ['FAQ', 'Álvaro AI', 'plataforma'],
     createdAt: '2026-08-25T00:00:00',
     updatedAt: '2026-08-25T00:00:00',
     views: 5,
@@ -1321,8 +1321,8 @@ export const mockPrompts: AIPrompt[] = [
   {
     id: 'prompt-01',
     name: 'Atendimento Principal',
-    description: 'Prompt principal para atendimento de alunos pelo agente ASAIA.',
-    content: 'Você é o ASAIA, assistente inteligente de atendimento acadêmico da FECAP...',
+    description: 'Prompt principal para atendimento de alunos pelo agente Álvaro AI.',
+    content: 'Você é o Álvaro AI, assistente inteligente de atendimento acadêmico da FECAP...',
     version: 'v2.4',
     status: 'ativo',
     author: 'Ricardo Mendes',
@@ -1374,7 +1374,7 @@ export const mockPrompts: AIPrompt[] = [
     id: 'prompt-05',
     name: 'Atendimento V3 (Teste)',
     description: 'Versão experimental com novo comportamento de empatia.',
-    content: 'Você é o ASAIA versão 3.0...',
+    content: 'Você é o Álvaro AI versão 3.0...',
     version: 'v3.0-beta',
     status: 'teste',
     author: 'Ricardo Mendes',
@@ -1431,7 +1431,7 @@ export const mockIntegrations: Integration[] = [
   {
     id: 'int-04',
     name: 'OpenAI / GPT-4o',
-    description: 'Modelo de linguagem para o agente conversacional ASAIA.',
+    description: 'Modelo de linguagem para o agente conversacional Álvaro AI.',
     type: 'ai',
     status: 'operacional',
     lastSync: '2026-08-30T08:25:00',
@@ -1527,7 +1527,7 @@ export const mockNotifications: Notification[] = [
     id: 'notif-06',
     type: 'system',
     title: 'Atualização do sistema',
-    message: 'ASAIA v2.4 foi implantado com sucesso',
+    message: 'Álvaro AI v2.4 foi implantado com sucesso',
     read: true,
     timestamp: '2026-08-25T10:00:00',
     priority: 'low',

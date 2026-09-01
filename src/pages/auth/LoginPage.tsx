@@ -1,32 +1,43 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../../store/app-store';
-import { sleep } from '../../lib/utils';
-import { Eye, EyeOff, Loader2, GraduationCap, HeadphonesIcon, ShieldCheck } from 'lucide-react';
+import { Eye, EyeOff, Loader2, AlertCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import FecapLogo from '../../components/ui/FecapLogo';
+import { api } from '../../lib/api';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
   const setActiveRole = useAppStore(state => state.setActiveRole);
+  const setCurrentUser = useAppStore(state => state.setCurrentUser);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    await sleep(1500);
-    setIsLoading(false);
-    setActiveRole('aluno');
-    navigate('/aluno');
-  };
-
-  const handleDemoLogin = (role: 'aluno' | 'asa' | 'admin') => {
-    setActiveRole(role);
-    navigate(`/${role}`);
+    setErrorMessage('');
+    try {
+      const res = await api.auth.login(email, password);
+      if (res?.token) {
+        localStorage.setItem('asaia_auth_token', res.token);
+      }
+      if (res?.user) {
+        setCurrentUser(res.user);
+        const role = res.user.role || 'aluno';
+        setActiveRole(role);
+        navigate(`/${role}`);
+      }
+    } catch (err: any) {
+      console.error('Erro ao fazer login:', err);
+      setErrorMessage(err.message || 'E-mail institucional ou senha incorretos.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -93,9 +104,9 @@ export default function LoginPage() {
           <div className="flex items-center gap-3.5 mb-12">
             <FecapLogo variant="white" size={48} />
             <div>
-              <span className="text-3xl font-black tracking-tight text-white">ASAIA</span>
+              <span className="text-3xl font-black tracking-tight text-white">Álvaro AI</span>
               <p className="text-xs tracking-widest uppercase font-semibold" style={{ color: '#00A878' }}>
-                Área do Sucesso do Aluno IA
+                Área do Sucesso do Aluno · Inteligência Artificial
               </p>
             </div>
           </div>
@@ -149,7 +160,7 @@ export default function LoginPage() {
             </div>
             <div className="flex items-center gap-2.5">
               <FecapLogo size={36} />
-              <span className="text-2xl font-black tracking-tight text-gray-900 dark:text-white">ASAIA</span>
+              <span className="text-2xl font-black tracking-tight text-gray-900 dark:text-white">Álvaro AI</span>
             </div>
           </div>
 
@@ -159,11 +170,22 @@ export default function LoginPage() {
             transition={{ duration: 0.45 }}
           >
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
-              Bem-vindo ao ASAIA
+              Bem-vindo ao Álvaro AI
             </h2>
-            <p className="text-sm text-gray-500 dark:text-slate-400 mb-8">
+            <p className="text-sm text-gray-500 dark:text-slate-400 mb-6">
               Faça login com seu e-mail institucional.
             </p>
+
+            {errorMessage && (
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-5 p-3.5 rounded-lg bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800/60 flex items-center gap-2.5 text-sm text-red-700 dark:text-red-300"
+              >
+                <AlertCircle className="w-4 h-4 shrink-0 text-red-500" />
+                <span>{errorMessage}</span>
+              </motion.div>
+            )}
 
             <form onSubmit={handleLogin} className="space-y-5">
               <div className="space-y-1.5">
@@ -233,35 +255,6 @@ export default function LoginPage() {
                 </a>
               </div>
             </form>
-
-            {/* Demo section */}
-            <div className="mt-10 pt-6 border-t border-gray-100 dark:border-slate-800">
-              <p className="text-xs font-semibold text-gray-400 dark:text-slate-500 mb-4 text-center uppercase tracking-widest">
-                Acessar como (Demo)
-              </p>
-              <div className="grid grid-cols-3 gap-2">
-                {[
-                  { role: 'aluno' as const, icon: <GraduationCap size={18} />, label: 'Aluno', accent: '#00A878' },
-                  { role: 'asa' as const, icon: <HeadphonesIcon size={18} />, label: 'ASA', accent: '#7B3FBE' },
-                  { role: 'admin' as const, icon: <ShieldCheck size={18} />, label: 'Admin', accent: '#F5C000' },
-                ].map(({ role, icon, label, accent }) => (
-                  <button
-                    key={role}
-                    onClick={() => handleDemoLogin(role)}
-                    className="flex flex-col items-center gap-1.5 px-3 py-3 text-xs font-medium
-                               bg-gray-50 hover:bg-gray-100 dark:bg-slate-800 dark:hover:bg-slate-700/80
-                               text-gray-600 dark:text-slate-400
-                               border border-gray-200 dark:border-slate-700
-                               rounded-xl transition-all duration-150 group"
-                  >
-                    <span className="transition-colors group-hover:text-current" style={{ color: accent }}>
-                      {icon}
-                    </span>
-                    {label}
-                  </button>
-                ))}
-              </div>
-            </div>
           </motion.div>
         </div>
       </div>

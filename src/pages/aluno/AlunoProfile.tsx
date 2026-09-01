@@ -17,16 +17,28 @@ import { useToast } from '../../components/ui/Toast'
 export default function AlunoProfile() {
   const navigate = useNavigate()
   const { show } = useToast()
-  const student = mockStudents.find(s => s.id === 'aluno-01')!
+  const currentUser = useAppStore(state => state.currentUser)
+  const logout = useAppStore(state => state.logout)
+
+  const student = currentUser ? {
+    id: currentUser.id,
+    name: currentUser.name,
+    email: currentUser.email,
+    ra: currentUser.ra || '24001523',
+    course: currentUser.course || 'Administração',
+    semester: currentUser.semester || 3,
+    period: currentUser.period || 'noite',
+    status: currentUser.status || 'regular',
+    phone: currentUser.phone || '(11) 98765-4321',
+  } : mockStudents[0]
 
   const theme = useAppStore(state => state.theme)
   const toggleTheme = useAppStore(state => state.toggleTheme)
-  const setActiveRole = useAppStore(state => state.setActiveRole)
 
   const [activeTab, setActiveTab] = useState<'academico' | 'documentos' | 'config'>('academico')
   const [showIdCard, setShowIdCard] = useState(false)
   const [editModal, setEditModal] = useState(false)
-  const [phone, setPhone] = useState('(11) 98765-4321')
+  const [phone, setPhone] = useState(student.phone || '(11) 98765-4321')
   const [address, setAddress] = useState('Av. Paulista, 1000 - Bela Vista, São Paulo/SP')
 
   const disciplinas = [
@@ -38,7 +50,7 @@ export default function AlunoProfile() {
   ]
 
   const handleLogout = () => {
-    setActiveRole('aluno')
+    logout()
     navigate('/login')
   }
 
@@ -251,7 +263,7 @@ export default function AlunoProfile() {
           <div className="bg-gradient-to-br from-slate-900 to-brand-950 border border-brand-900/40 rounded-2xl p-6 text-white shadow-card space-y-4 flex flex-col justify-between">
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="font-extrabold text-xl tracking-tight">ASAIA</span>
+                <span className="font-extrabold text-xl tracking-tight">Álvaro AI</span>
                 <span className="text-2xs px-2 py-0.5 rounded-full bg-white/10 text-teal-300 font-mono font-semibold">
                   v1.2.0 · Fase 1
                 </span>

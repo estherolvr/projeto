@@ -88,7 +88,7 @@ const navSections: NavSection[] = [
 ]
 
 export default function AdminLayout() {
-  const { theme, toggleTheme, sidebarCollapsed, toggleSidebar } = useAppStore()
+  const { theme, toggleTheme, sidebarCollapsed, toggleSidebar, currentUser, logout } = useAppStore()
   const [mobileOpen, setMobileOpen] = useState(false)
   const navigate = useNavigate()
 
@@ -100,7 +100,7 @@ export default function AdminLayout() {
           <FecapLogo size={32} />
           {!collapsed && (
             <div>
-              <span className="font-bold text-gray-900 dark:text-white tracking-tight">ASAIA</span>
+              <span className="font-bold text-gray-900 dark:text-white tracking-tight">Álvaro AI</span>
               <p className="text-[11px] text-gray-500 dark:text-slate-400 leading-tight">Administração</p>
             </div>
           )}
@@ -152,7 +152,10 @@ export default function AdminLayout() {
             {theme === 'dark' ? 'Modo claro' : 'Modo escuro'}
           </button>
           <button
-            onClick={() => navigate('/login')}
+            onClick={() => {
+              logout()
+              navigate('/login')
+            }}
             className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-slate-400 hover:bg-gray-100 dark:hover:bg-slate-700/50 transition-colors"
           >
             <LogOut className="w-4 h-4" />
@@ -204,7 +207,7 @@ export default function AdminLayout() {
                   <div className="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center">
                     <span className="text-white font-bold text-sm">A</span>
                   </div>
-                  <span className="font-bold text-gray-900 dark:text-white">ASAIA</span>
+                  <span className="font-bold text-gray-900 dark:text-white">Álvaro AI</span>
                 </div>
                 <button onClick={() => setMobileOpen(false)} className="p-1 rounded-lg text-gray-400 hover:text-gray-600">
                   <X className="w-5 h-5" />
@@ -246,10 +249,14 @@ export default function AdminLayout() {
               <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-red-500 rounded-full" />
             </button>
             <div className="flex items-center gap-2 pl-2 border-l border-gray-200 dark:border-slate-700">
-              <Avatar name="Ricardo Mendes" size="sm" />
+              <Avatar name={currentUser?.name || 'Administrador'} size="sm" />
               <div className="hidden md:block">
-                <p className="text-xs font-medium text-gray-900 dark:text-white leading-none">Ricardo Mendes</p>
-                <p className="text-[10px] text-gray-500 dark:text-slate-400">Administrador</p>
+                <p className="text-xs font-medium text-gray-900 dark:text-white leading-none">
+                  {currentUser?.name || 'Administrador'}
+                </p>
+                <p className="text-[10px] text-gray-500 dark:text-slate-400">
+                  {currentUser?.department || 'Administração'}
+                </p>
               </div>
             </div>
           </div>

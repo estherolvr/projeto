@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
   Plus, ChevronRight, Ticket as TicketIcon, Search,
@@ -12,6 +12,7 @@ import Badge from '../../components/ui/Badge'
 import StatusBadge from '../../components/ui/StatusBadge'
 import PriorityBadge from '../../components/ui/PriorityBadge'
 import SLAIndicator from '../../components/ui/SLAIndicator'
+import { api } from '../../lib/api'
 
 type Filter = 'todos' | TicketStatus
 
@@ -20,8 +21,19 @@ export default function AlunoChamados() {
   const [filter, setFilter] = useState<Filter>('todos')
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string>('todas')
+  const [tickets, setTickets] = useState<Ticket[]>(mockTickets.filter(t => t.studentId === 'aluno-01'))
 
-  const allTickets = mockTickets.filter(t => t.studentId === 'aluno-01')
+  useEffect(() => {
+    api.tickets.list({ studentId: 'aluno-01' })
+      .then(res => {
+        if (res && res.length > 0) {
+          setTickets(res)
+        }
+      })
+      .catch(err => console.error('Erro ao buscar chamados:', err))
+  }, [])
+
+  const allTickets = tickets
 
   const filteredTickets = allTickets.filter(t => {
     const matchesStatus = filter === 'todos' || t.status === filter

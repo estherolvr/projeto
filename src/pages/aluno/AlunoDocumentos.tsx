@@ -220,7 +220,7 @@ export default function AlunoDocumentos() {
         <div className="flex-1 text-sm text-gray-700 dark:text-slate-300">
           <p className="font-semibold text-gray-900 dark:text-white">Validade e Autenticidade Digital</p>
           <p className="text-xs text-gray-500 dark:text-slate-400 mt-0.5">
-            Todos os documentos emitidos pelo portal ASAIA possuem assinatura digital e código de verificação válido conforme portaria do MEC.
+            Todos os documentos emitidos pelo portal Álvaro AI possuem assinatura digital e código de verificação válido conforme portaria do MEC.
           </p>
         </div>
       </div>

@@ -38,7 +38,7 @@ const auditEvents = [
   { id: 1, user: 'Ricardo Mendes', action: 'Alterou permissões do grupo ASA', time: 'Há 5 minutos' },
   { id: 2, user: 'Sistema', action: 'Backup diário concluído', time: 'Há 2 horas' },
   { id: 3, user: 'Patricia Lemos', action: 'Adicionou nova regra de SLA', time: 'Há 3 horas' },
-  { id: 4, user: 'ASAIA (IA)', action: 'Processou 150 mensagens em lote', time: 'Há 5 horas' },
+  { id: 4, user: 'Álvaro AI (IA)', action: 'Processou 150 mensagens em lote', time: 'Há 5 horas' },
   { id: 5, user: 'Fernanda Costa', action: 'Fechou 12 chamados em massa', time: 'Há 6 horas' },
 ]
 
@@ -55,7 +55,7 @@ export default function AdminCommandCenter() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-slate-100">Central de Controle</h1>
-          <p className="text-sm text-gray-500 dark:text-slate-400">Visão geral da operação e saúde do ASAIA.</p>
+          <p className="text-sm text-gray-500 dark:text-slate-400">Visão geral da operação e saúde do Álvaro AI.</p>
         </div>
         
         <div className="flex flex-wrap gap-2">
